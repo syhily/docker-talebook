@@ -1,0 +1,5 @@
+database/*
+!database/.gitkeep
+
+ramdisk/*
+!ramdisk/.gitkeep

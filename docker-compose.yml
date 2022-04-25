@@ -1,0 +1,35 @@
+version: "3.4"
+services:
+  talebook:
+    image: talebook/talebook:latest
+    container_name: talebook
+    ports:
+      - "8083:80"
+    volumes:
+      - /volume1/docker/talebook:/data
+      - /volume1/docker/talebook/ramdisk/metadata.db:/data/books/library/metadata.db
+      - /volume1/docker/talebook/scripts/bootstrap.sh:/var/www/talebook/bootstrap.sh
+      - /volume1/docker/talebook/settings/manual.py:/data/books/settings/manual.py
+      - /volume1/docker/talebook/settings/talebook.conf:/etc/nginx/conf.d/talebook.conf
+    restart: always
+    depends_on:
+      - db
+      - douban-api
+    command: /var/www/talebook/bootstrap.sh
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=talebook
+      - MYSQL_USER=talebook
+      - MYSQL_PASSWORD=talebook
+      - MYSQL_DATABASE=talebook
+    volumes:
+      - /volume1/docker/talebook/settings/talebook.sql:/docker-entrypoint-initdb.d/talebook.sql
+      - /volume1/docker/talebook/database:/var/lib/mysql
+  douban-api:
+    image: ghcr.io/cxfksword/douban-api-rs:latest
+    container_name: douban-api
+    ports:
+      - "8089:80"
+    restart: always
