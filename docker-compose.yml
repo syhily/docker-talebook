@@ -30,6 +30,4 @@ services:
   douban-api:
     image: ghcr.io/cxfksword/douban-api-rs:latest
     container_name: douban-api
-    ports:
-      - "8089:80"
     restart: always
