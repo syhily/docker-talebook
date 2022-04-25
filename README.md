@@ -54,7 +54,7 @@ rm -rf talebook-library
 
 6. The database on ramdisk should be synced for making data consistence. Create a Synology schedule task for executing the `scripts/update-original.sh` every minute.
 
->**Caution ⚠️：** We recommend adding books or deleting books on talebook side. Don't using calibre for avoiding data missing after you enabling this schedule task.
+>**Caution ⚠️：** We recommend adding books or deleting books on talebook side. Don't using calibre for avoiding data losing after you enabling this schedule task.
 >The latest talebook bundled a good batch import mechanism. Copy your books to `/volume1/docker/talebook/imports`, you can scan the new books and import them into talebook.
 
 7. Create a daily Synology schedule task for executing the `scripts/daily-cleanup-talebook.sh`.
