@@ -34,18 +34,27 @@ git clone https://github.com/syhily/docker-talebook.git talebook
 
 ```shell
 # Rename
-mv /path-to-your/calibre-library library
+mv /full-path-to-your-calibre-library library
 # Move
 mv library /volume1/docker/talebook/books
 ```
 
+>If you don't have any existed calibre library. You can use the sample library provided by talebook.
+>It was only used for evaluation. This repository size is about 7.7 gigabytes, make sure your network condition is good.
+
+```shell
+git clone https://github.com/talebook/talebook-library.git
+mv talebook-library/library /volume1/docker/talebook/books
+rm -rf talebook-library
+```
+
 4. Mount the memory disk for your calibre database. Execute the `scripts/mount-ramdisk.sh`. You should create a Synology startup tasks by running this script with `root` privilege.
 
-5. Start up the talebook, `docker-compose up -d`.
+5. Start up the talebook, `docker-compose up -d`. You can access the talebook on `8083` port.
 
 6. The database on ramdisk should be synced for making data consistence. Create a Synology schedule task for executing the `scripts/update-original.sh` every minute.
 
-**Caution ⚠️：** We recommend adding books or deleting books on talebook side. Don't using calibre for avoiding data missing after you enabling this schedule task.
-The latest talebook bundled a good batch import mechanism. Copy your books to `/volume1/docker/talebook/imports`, you can scan the new books and import them into talebook.
+>**Caution ⚠️：** We recommend adding books or deleting books on talebook side. Don't using calibre for avoiding data missing after you enabling this schedule task.
+>The latest talebook bundled a good batch import mechanism. Copy your books to `/volume1/docker/talebook/imports`, you can scan the new books and import them into talebook.
 
 7. Create a daily Synology schedule task for executing the `scripts/daily-cleanup-talebook.sh`.

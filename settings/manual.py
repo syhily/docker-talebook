@@ -4,7 +4,7 @@
 import os
 settings = {
 # Force using MySQL
-"user_database": 'mysql+pymysql://calibre:calibre@db:3306/calibre',
+"user_database": 'mysql+pymysql://talebook:talebook@db:3306/talebook',
 # Increase database pool size
 "db_engine_args": {
     "echo": False,
